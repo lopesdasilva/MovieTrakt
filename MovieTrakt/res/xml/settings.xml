@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+ xmlns:android="http://schemas.android.com/apk/res/android">
+	 <PreferenceCategory
+                android:title="Credentials">
+                <EditTextPreference
+                android:name="username"
+                android:summary="Enter your username"
+                android:defaultValue="username"
+                android:title="Username"
+                android:key="username" />
+                <EditTextPreference
+                android:name="password"
+                android:summary="Enter your password"
+                android:defaultValue="password"
+                android:title="Password"
+                android:key="password" />
+                <EditTextPreference
+                android:name="apikey"
+                android:summary="Enter your API Key"
+                android:defaultValue="a7b42c4fb5c50a85c68731b25cc3c1ed"
+                android:title="API Key"
+                android:key="apikey" />
+        </PreferenceCategory>
+        <PreferenceCategory
+                android:title="About">
+                <Preference
+                android:key="version"
+                android:title="Version"
+                android:summary=".5 Alpha" />
+                <Preference
+                android:key="version"
+                android:title="Author"
+                android:summary="Rui Lopes da Silva" />
+               
+		</PreferenceCategory>
+</PreferenceScreen>
