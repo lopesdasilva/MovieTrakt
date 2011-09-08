@@ -1,12 +1,10 @@
 package com.MovieTrakt;
 
 
-
-
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.MovieTrakt.LazyList.LazyAdapter;
 import com.jakewharton.trakt.ServiceManager;
 import com.jakewharton.trakt.entities.Movie;
 import com.jakewharton.trakt.services.SearchService.MoviesBuilder;
@@ -25,7 +23,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -59,10 +56,10 @@ public class SearchableActivity extends GDActivity {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-				
+
 				Intent i = new Intent(getApplicationContext(), MovieActivity.class);
 				i.putExtra("Movie", moviesList.get(position));
-//				i.putExtra("Manager", manager);
+				//				i.putExtra("Manager", manager);
 				startActivity(i);
 
 			}
@@ -144,25 +141,35 @@ public class SearchableActivity extends GDActivity {
 		/** The system calls this to perform work in the UI thread and delivers
 		 * the result from doInBackground() */
 		protected void onPostExecute(ArrayList<Movie> result) {
-			//				if(e==null){
-			//				mUser.setText(result.get(0).getTitle());
-			//				mPass.setText(result.get(0).getYear());
-			//				}else{
-			//					
-			//						goBlooey(e);
-			//					}
+
+			if(e==null){
 
 
-			String[] resultaux=new String[result.size()];
-			int i=0;
-			for (Movie m:result){
-				resultaux[i]=m.getTitle()+" ("+m.getYear()+")";
-				i++;
-			}
-			searchResults.setAdapter(new ArrayAdapter<String>(searchableActivitity,
-					android.R.layout.simple_list_item_1, resultaux));
-			mProgressBar.setVisibility(ProgressBar.GONE);
+				String[] mTitle=new String[result.size()];
+				String[] mPosters=new String[result.size()];
+				boolean[] mSeen = new boolean[result.size()];
+				int i=0;
+				for (Movie m:result){
 
+					mPosters[i]=m.getImages().getPoster();
+					if(m.getPlays()!=null && m.getPlays()!=0)
+						mSeen[i]=true;
+					else
+						mSeen[i]=false;
+
+					mTitle[i]=m.getTitle()+" ("+m.getYear()+")";
+					i++;
+				}
+
+				LazyAdapter lazyAdapter = new LazyAdapter(searchableActivitity, mPosters,mTitle,mSeen);
+				searchResults.setAdapter(lazyAdapter);
+
+
+				searchResults.setVisibility(ListView.VISIBLE);
+
+				mProgressBar.setVisibility(ProgressBar.GONE);
+			}else
+				goBlooey(e);
 		}
 
 
@@ -171,22 +178,12 @@ public class SearchableActivity extends GDActivity {
 	private void goBlooey(Throwable t) {
 		AlertDialog.Builder builder=new AlertDialog.Builder(this);
 
-		if (t.getClass().equals(UnknownHostException.class)){
-			builder
-			.setTitle("Erro")
-			.setMessage("Verifique a ligação à internet")
-			.setPositiveButton("OK", null)
-			.show();
-			//			mEmentaDisplay.setText("");
-		}else{
-			builder
-			.setTitle("Informação")
-			.setMessage("Cantina Fechada")
-			.setPositiveButton("OK", null)
-			.show();
-			//			mEmentaDisplay.setText("");
-		}
 
+		builder
+		.setTitle("Connection Error")
+		.setMessage("Movie Trakt can not connect with trakt service")
+		.setPositiveButton("OK", null)
+		.show();
 	}
 
 

@@ -6,7 +6,6 @@ import java.security.NoSuchAlgorithmException;
 public class Password {
 
 	
-	private String password;
 
 	public String parseSHA1Password(String password) throws NoSuchAlgorithmException{
 		MessageDigest md = MessageDigest.getInstance("SHA1");

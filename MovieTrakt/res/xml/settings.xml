@@ -6,13 +6,13 @@
                 <EditTextPreference
                 android:name="username"
                 android:summary="Enter your username"
-                android:defaultValue="username"
+                android:defaultValue="lopesdasilvatest"
                 android:title="Username"
                 android:key="username" />
                 <EditTextPreference
                 android:name="password"
                 android:summary="Enter your password"
-                android:defaultValue="password"
+                android:defaultValue="123456"
                 android:title="Password"
                 android:key="password" />
                 <EditTextPreference
@@ -27,11 +27,14 @@
                 <Preference
                 android:key="version"
                 android:title="Version"
-                android:summary=".5 Alpha" />
+                android:summary=".9 Alpha" />
                 <Preference
                 android:key="version"
                 android:title="Author"
                 android:summary="Rui Lopes da Silva" />
-               
-		</PreferenceCategory>
+               	<CheckBoxPreference
+               	android:key="login"
+               	android:title="Login"
+               	android:defaultValue="false" />         	
+               	</PreferenceCategory>
 </PreferenceScreen>

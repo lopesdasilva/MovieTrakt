@@ -4,49 +4,69 @@
   android:layout_width="fill_parent"
   android:layout_height="fill_parent" android:orientation="vertical" android:weightSum="1"
   android:background="#333333" >
-    <LinearLayout android:layout_width="fill_parent" android:id="@+id/linearLayout3" android:layout_height="wrap_content" android:orientation="vertical" android:scrollbars="vertical|horizontal">
-        <LinearLayout android:weightSum="1" android:layout_width="fill_parent" android:scrollbarStyle="insideInset" android:id="@+id/linearLayout1" android:layout_height="wrap_content">
-            <RelativeLayout android:layout_height="fill_parent" android:layout_gravity="clip_vertical" android:layout_width="153dp">
-                <greendroid.widget.AsyncImageView android:id="@+id/poster" android:layout_centerInParent="true" android:layout_width="160dp" android:layout_height="190dp" android:src="@drawable/back"></greendroid.widget.AsyncImageView>
-                <RelativeLayout android:id="@+id/relativeLayout1" android:layout_alignParentTop="true" android:layout_alignParentLeft="true" android:layout_width="35dp" android:layout_height="35dp">
-                    <ImageView android:src="@drawable/collection" android:layout_height="fill_parent" android:layout_width="fill_parent" android:id="@+id/collectiontag"></ImageView>
-                    <ImageView android:src="@drawable/watchtag" android:layout_width="25dp" android:layout_height="35dp" android:id="@+id/watchtag" android:layout_alignParentTop="true" android:layout_alignParentRight="true"></ImageView>
-                </RelativeLayout>
-                <RelativeLayout android:id="@+id/relativeLayout5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignBottom="@+id/relativeLayout1" android:layout_toRightOf="@+id/relativeLayout1">
-                </RelativeLayout>
-                <RelativeLayout android:id="@+id/relativeLayout6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignTop="@+id/relativeLayout5" android:layout_alignParentLeft="true">
-                </RelativeLayout>
-            </RelativeLayout>
-            <RelativeLayout android:layout_width="fill_parent" android:id="@+id/relativeLayout2" android:layout_height="fill_parent" android:gravity="center">
-                <RelativeLayout android:id="@+id/relativeLayout4" android:layout_alignParentTop="true" android:layout_alignParentRight="true" android:layout_width="50dp" android:layout_height="50dp">
-                    <ImageView android:src="@drawable/seen" android:layout_width="fill_parent" android:layout_height="fill_parent" android:id="@+id/seentag"></ImageView>
-                    <ImageView android:src="@drawable/lovetag" android:id="@+id/lovetag" android:layout_alignParentTop="true" android:layout_alignParentRight="true" android:layout_height="25dp" android:layout_width="25dp"></ImageView>
-                </RelativeLayout>
-                <ImageView android:src="@drawable/lovedbig" android:layout_width="60dp" android:layout_height="50dp" android:id="@+id/imageView3" android:layout_below="@+id/relativeLayout4" android:layout_alignParentLeft="true" android:layout_marginLeft="14dp"></ImageView>
-                <ImageView android:src="@drawable/hatedbig" android:layout_width="60dp" android:layout_height="50dp" android:id="@+id/imageView4" android:layout_below="@+id/relativeLayout4" android:layout_toRightOf="@+id/imageView3" android:layout_marginLeft="16dp"></ImageView>
-                <ImageView android:src="@drawable/seenbig" android:id="@+id/seenbutton" android:layout_below="@+id/imageView3" android:layout_alignRight="@+id/imageView4" android:layout_width="110dp" android:layout_height="40dp"></ImageView>
-                <ImageView android:src="@drawable/collectionbig" android:layout_width="105dp" android:layout_height="40dp" android:id="@+id/collectionbutton" android:layout_below="@+id/seenbutton" android:layout_alignRight="@+id/seenbutton"></ImageView>
-                <ImageView android:src="@drawable/watchbig" android:layout_width="100dp" android:layout_height="40dp" android:id="@+id/watchbutton" android:layout_below="@+id/collectionbutton" android:layout_alignRight="@+id/collectionbutton"></ImageView>
-                <TextView android:text="0 votes" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/textVotes" android:layout_alignBaseline="@+id/rating" android:layout_alignBottom="@+id/rating" android:layout_alignLeft="@+id/imageView4" android:textSize="12dp"></TextView>
-                <TextView android:text="NR" android:layout_width="wrap_content" android:textSize="25dp" android:layout_height="wrap_content" android:id="@+id/rating" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_above="@+id/imageView3" android:layout_alignLeft="@+id/imageView3"></TextView>
-            </RelativeLayout>
-        </LinearLayout>
-        <RelativeLayout android:layout_width="fill_parent" android:id="@+id/relativeLayout3" android:layout_height="fill_parent" android:scrollbars="vertical">
-            </RelativeLayout>
-    </LinearLayout>
-    <ScrollView android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/scrollView1">
-        <LinearLayout android:id="@+id/linearLayout4" android:layout_width="fill_parent" android:layout_height="fill_parent">
-            <LinearLayout android:scrollbarStyle="insideOverlay" android:orientation="vertical" android:id="@+id/linearLayout2" android:layout_width="fill_parent" android:layout_height="wrap_content" android:scrollbarAlwaysDrawVerticalTrack="true">
-                <TextView android:text="" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_alignParentTop="true" android:layout_alignParentLeft="true" android:id="@+id/tag"></TextView>
-                <TextView android:text="Description" android:textColor="#ffffff" android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/description"></TextView>
-                <TextView android:text="Released" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/released"></TextView>
-                <LinearLayout android:layout_gravity="center" android:id="@+id/linearLayout5" android:baselineAligned="false" android:layout_height="32dp" android:layout_width="wrap_content">
-                    <ImageView android:src="@drawable/trailer" android:layout_height="wrap_content" android:layout_width="85dp" android:id="@+id/trailerbutton"></ImageView>
-                    <ImageView android:src="@drawable/imdb" android:layout_height="wrap_content" android:layout_width="80dp" android:id="@+id/imdbbutton"></ImageView>
-                    <ImageView android:src="@drawable/tmdb" android:layout_height="wrap_content" android:layout_width="80dp" android:id="@+id/tmdbbutton"></ImageView>
+    <FrameLayout android:id="@+id/frameLayout1" android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout android:id="@+id/linearLayout7" android:layout_width="match_parent" android:orientation="vertical" android:layout_height="wrap_content">
+            <LinearLayout android:scrollbars="vertical|horizontal" android:layout_width="fill_parent" android:id="@+id/linearLayout3" android:orientation="vertical" android:layout_height="wrap_content">
+                <LinearLayout android:scrollbarStyle="insideInset" android:weightSum="1" android:layout_width="fill_parent" android:id="@+id/linearLayout1" android:layout_height="wrap_content">
+                    <RelativeLayout android:layout_gravity="clip_vertical" android:layout_width="153dp" android:layout_height="fill_parent">
+                        <greendroid.widget.AsyncImageView android:layout_centerInParent="true" android:id="@+id/poster" android:layout_width="160dp" android:layout_height="190dp"></greendroid.widget.AsyncImageView>
+                        <RelativeLayout android:id="@+id/relativeLayout1" android:layout_alignParentTop="true" android:layout_width="35dp" android:layout_alignParentLeft="true" android:layout_height="35dp">
+                            <ImageView android:id="@+id/collectiontag" android:layout_width="fill_parent" android:layout_height="fill_parent" android:src="@drawable/collection" android:visibility="gone"></ImageView>
+                            <ImageView android:id="@+id/watchtag" android:layout_alignParentTop="true" android:layout_alignParentRight="true" android:layout_width="25dp" android:layout_height="35dp" android:src="@drawable/watchtag" android:visibility="gone"></ImageView>
+                        </RelativeLayout>
+                        <RelativeLayout android:id="@+id/relativeLayout5" android:layout_toRightOf="@+id/relativeLayout1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignBottom="@+id/relativeLayout1"></RelativeLayout>
+                        <RelativeLayout android:layout_alignTop="@+id/relativeLayout5" android:id="@+id/relativeLayout6" android:layout_width="wrap_content" android:layout_alignParentLeft="true" android:layout_height="wrap_content"></RelativeLayout>
+                    </RelativeLayout>
+                    <RelativeLayout android:id="@+id/relativeLayout2" android:gravity="center" android:layout_width="fill_parent" android:layout_height="fill_parent">
+                        <RelativeLayout android:id="@+id/relativeLayout4" android:layout_alignParentTop="true" android:layout_alignParentRight="true" android:layout_width="50dp" android:layout_height="50dp">
+                            <ImageView android:visibility="gone" android:id="@+id/seentag" android:layout_width="fill_parent" android:layout_height="fill_parent" android:src="@drawable/seen"></ImageView>
+                            <ImageView android:id="@+id/lovetag" android:layout_alignParentTop="true" android:layout_alignParentRight="true" android:layout_width="25dp" android:layout_height="25dp" android:src="@drawable/lovetag" android:visibility="gone"></ImageView>
+                        </RelativeLayout>
+                        <ImageView android:id="@+id/imageView3" android:layout_below="@+id/relativeLayout4" android:layout_width="60dp" android:layout_alignParentLeft="true" android:layout_marginLeft="14dp" android:layout_height="50dp" android:src="@drawable/lovedbigxml"></ImageView>
+                        <ImageView android:layout_toRightOf="@+id/imageView3" android:id="@+id/imageView4" android:layout_below="@+id/relativeLayout4" android:layout_width="60dp" android:layout_marginLeft="16dp" android:layout_height="50dp" android:src="@drawable/hatedbigxml"></ImageView>
+                        <ImageView android:id="@+id/seenbutton" android:layout_alignRight="@+id/imageView4" android:layout_below="@+id/imageView3" android:layout_width="110dp" android:layout_height="40dp" android:src="@drawable/seenbigxml"></ImageView>
+                        <ImageView android:id="@+id/collectionbutton" android:layout_alignRight="@+id/seenbutton" android:layout_below="@+id/seenbutton" android:layout_width="105dp" android:layout_height="40dp" android:src="@drawable/collectionbigxml"></ImageView>
+                        <ImageView android:id="@+id/watchbutton" android:layout_alignRight="@+id/collectionbutton" android:layout_below="@+id/collectionbutton" android:layout_width="100dp" android:layout_height="40dp" android:src="@drawable/watchbigxml"></ImageView>
+                        <TextView android:layout_alignBaseline="@+id/rating" android:textSize="12dp" android:id="@+id/textVotes" android:layout_alignLeft="@+id/imageView4" android:text="0 votes" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignBottom="@+id/rating"></TextView>
+                        <TextView android:layout_above="@+id/imageView3" android:textSize="25dp" android:id="@+id/rating" android:layout_alignLeft="@+id/imageView3" android:text="NR" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+                    </RelativeLayout>
                 </LinearLayout>
+                <RelativeLayout android:id="@+id/relativeLayout3" android:layout_width="fill_parent" android:scrollbars="vertical" android:layout_height="203dp">
+                    <ScrollView android:id="@+id/scrollView1" android:layout_width="fill_parent" android:layout_height="match_parent">
+                        <LinearLayout android:layout_width="fill_parent" android:id="@+id/linearLayout4" android:layout_height="fill_parent">
+                            <LinearLayout android:scrollbarAlwaysDrawVerticalTrack="true" android:scrollbarStyle="insideOverlay" android:layout_width="fill_parent" android:id="@+id/linearLayout2" android:orientation="vertical" android:layout_height="match_parent">
+                                <TextView android:id="@+id/tag" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content"></TextView>
+                                <TextView android:id="@+id/description" android:text="Description" android:textColor="#ffffff" android:layout_height="wrap_content" android:layout_width="fill_parent"></TextView>
+                                <TextView android:id="@+id/released" android:text="Released" android:layout_height="wrap_content" android:layout_width="wrap_content"></TextView>
+                                <LinearLayout android:baselineAligned="false" android:layout_gravity="center" android:layout_width="wrap_content" android:id="@+id/linearLayout5" android:layout_height="32dp">
+                                    <ImageView android:id="@+id/trailerbutton" android:layout_width="85dp" android:layout_height="wrap_content" android:src="@drawable/trailerxml" android:visibility="gone"></ImageView>
+                                    <ImageView android:id="@+id/imdbbutton" android:layout_width="80dp" android:layout_height="wrap_content" android:src="@drawable/imdbxml"></ImageView>
+                                    <ImageView android:id="@+id/tmdbbutton" android:layout_width="80dp" android:layout_height="wrap_content" android:src="@drawable/tmdbxml"></ImageView>
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </ScrollView>
+                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+        <SlidingDrawer android:layout_width="match_parent" android:id="@+id/slidingDrawer1" android:handle="@+id/handle" android:content="@+id/content" android:layout_height="match_parent">
+            <Button android:layout_width="match_parent" android:layout_height="40dp" android:textColor="#ffffff" android:textSize="23dp" android:text="ShoutBox" android:id="@+id/handle" android:background="@drawable/topbar"></Button>
+            <LinearLayout android:background="#e6e6e1" android:layout_width="match_parent" android:id="@+id/content" android:layout_height="match_parent">
+                <LinearLayout android:id="@+id/linearLayout6" android:orientation="vertical" android:layout_height="match_parent" android:layout_width="match_parent">
+                    <LinearLayout android:id="@+id/linearLayout8" android:layout_height="70dp" android:layout_width="match_parent">
+                        <ImageView android:src="@drawable/avatar" android:layout_height="wrap_content" android:layout_width="55dp" android:id="@+id/avatar" android:layout_gravity="top"></ImageView>
+                        <EditText android:layout_weight="1" android:id="@+id/shoutText" android:inputType="textMultiLine" android:layout_height="match_parent" android:layout_width="wrap_content">
+                            <requestFocus></requestFocus>
+                        </EditText>
+                        <ImageView android:src="@drawable/shoutxml" android:layout_height="wrap_content" android:layout_width="76dp" android:id="@+id/shoutButton" android:layout_gravity="bottom" android:clickable="true"></ImageView>
+                    </LinearLayout>
+                    <RelativeLayout android:id="@+id/relativeLayout7" android:layout_height="match_parent" android:layout_width="match_parent">
+                        <ProgressBar android:layout_centerInParent="true" android:id="@+id/progressBarShout" android:layout_width="wrap_content" android:layout_height="wrap_content"></ProgressBar>
+                        <ListView android:layout_width="match_parent" android:id="@+id/shoutList" android:clickable="false" android:layout_height="match_parent"></ListView>
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </SlidingDrawer>
+    </FrameLayout>
    
 </LinearLayout>
