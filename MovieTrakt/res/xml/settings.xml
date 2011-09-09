@@ -2,39 +2,24 @@
 <PreferenceScreen
  xmlns:android="http://schemas.android.com/apk/res/android">
 	 <PreferenceCategory
-                android:title="Credentials">
-                <EditTextPreference
-                android:name="username"
-                android:summary="Enter your username"
-                android:defaultValue="lopesdasilvatest"
-                android:title="Username"
-                android:key="username" />
-                <EditTextPreference
-                android:name="password"
-                android:summary="Enter your password"
-                android:defaultValue="123456"
-                android:title="Password"
-                android:key="password" />
-                <EditTextPreference
-                android:name="apikey"
-                android:summary="Enter your API Key"
-                android:defaultValue="a7b42c4fb5c50a85c68731b25cc3c1ed"
-                android:title="API Key"
-                android:key="apikey" />
+                android:title="Account">
+                <Preference
+                android:title="Sign Off"
+                android:key="signoff">
+                <intent
+                android:action="com.MovieTrakt.LOGOFF"
+                />
+                 </Preference>         
         </PreferenceCategory>
         <PreferenceCategory
                 android:title="About">
                 <Preference
                 android:key="version"
                 android:title="Version"
-                android:summary=".9 Alpha" />
+                android:summary="1.0b" />
                 <Preference
-                android:key="version"
+                android:key="author"
                 android:title="Author"
-                android:summary="Rui Lopes da Silva" />
-               	<CheckBoxPreference
-               	android:key="login"
-               	android:title="Login"
-               	android:defaultValue="false" />         	
+                android:summary="Rui Lopes da Silva" />               	       	
                	</PreferenceCategory>
 </PreferenceScreen>

@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 
+import com.MovieTrakt.LazyList.ImageLoader;
+import com.MovieTrakt.LazyList.ImageLoaderBigger;
 import com.MovieTrakt.LazyList.LazyAdapterShouts;
 import com.jakewharton.trakt.ServiceManager;
 import com.jakewharton.trakt.entities.Movie;
@@ -33,7 +35,6 @@ import android.widget.SlidingDrawer.OnDrawerOpenListener;
 import android.widget.TextView;
 import greendroid.app.GDActivity;
 import greendroid.widget.ActionBarItem;
-import greendroid.widget.AsyncImageView;
 
 
 public class MovieActivity extends GDActivity implements OnDrawerOpenListener, OnDrawerCloseListener{
@@ -42,10 +43,12 @@ public class MovieActivity extends GDActivity implements OnDrawerOpenListener, O
 	private static final int SETTINGS = 1;
 	public Movie m ;
 
+	String apikey="a7b42c4fb5c50a85c68731b25cc3c1ed";
+
 	private TextView mDescription;
 	private TextView mRating;
 	private TextView mTag;
-	private AsyncImageView mPoster;
+	private ImageView mPoster;
 	private ImageView mTrailer;
 	private ImageView mIMDB;
 	private ImageView mTMDB;
@@ -67,6 +70,7 @@ public class MovieActivity extends GDActivity implements OnDrawerOpenListener, O
 	private ImageView mShoutButton;
 	private ServiceManager managerGlobal;
 	private EditText mShoutText;
+	private ImageView mAvatar;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -87,7 +91,7 @@ public class MovieActivity extends GDActivity implements OnDrawerOpenListener, O
 		setTitle(m.getTitle()+" ("+m.getYear()+")");
 
 		mTag = (TextView) findViewById(R.id.tag);
-
+		mAvatar = (ImageView) findViewById(R.id.avatar);
 		mDescription = (TextView) findViewById(R.id.description);
 		mRating = (TextView) findViewById(R.id.rating);
 		mVotes = (TextView) findViewById(R.id.textVotes);
@@ -95,8 +99,10 @@ public class MovieActivity extends GDActivity implements OnDrawerOpenListener, O
 
 		mTag.setText(m.getTagline());
 		mDescription.setText(m.getOverview());
-		mPoster = (AsyncImageView) findViewById(R.id.poster);
-		mPoster.setUrl(m.getImages().getPoster());
+		
+		ImageLoaderBigger imageLoader=new ImageLoaderBigger(this.getApplicationContext());
+		mPoster = (ImageView) findViewById(R.id.poster);
+		imageLoader.DisplayImage(m.getImages().getPoster(), this, mPoster);
 
 		mTrailer = (ImageView) findViewById(R.id.trailerbutton);
 		mIMDB = (ImageView) findViewById(R.id.imdbbutton);
@@ -242,7 +248,7 @@ public class MovieActivity extends GDActivity implements OnDrawerOpenListener, O
 	boolean rating;
 	String username;
 	String password;
-	String apikey;
+
 	public List<Movie> moviesList;
 	public MovieActivity movieActivity;
 
@@ -256,8 +262,6 @@ public class MovieActivity extends GDActivity implements OnDrawerOpenListener, O
 				"username");
 		password = prefs.getString("password",
 				"password");
-		apikey = prefs.getString("apikey",
-				"apikey");
 	}
 
 
@@ -276,7 +280,7 @@ public class MovieActivity extends GDActivity implements OnDrawerOpenListener, O
 				//TODO VERIFICAR ISTO
 				managerGlobal=manager;
 				manager.setAuthentication(username, new Password().parseSHA1Password(password));
-				manager.setApiKey("a7b42c4fb5c50a85c68731b25cc3c1ed");
+				manager.setApiKey(apikey);
 
 
 
@@ -357,6 +361,7 @@ public class MovieActivity extends GDActivity implements OnDrawerOpenListener, O
 
 	private class DownloadShouts extends AsyncTask<String, Void, List<Shout>> {
 		private Exception e=null;
+		private String avatarURL;
 
 
 		@Override
@@ -368,8 +373,8 @@ public class MovieActivity extends GDActivity implements OnDrawerOpenListener, O
 
 				ServiceManager manager = new ServiceManager();
 				manager.setAuthentication(username, new Password().parseSHA1Password(password));
-				manager.setApiKey("a7b42c4fb5c50a85c68731b25cc3c1ed");
-
+				manager.setApiKey(apikey);
+				avatarURL=manager.userService().profile(username).fire().getAvatar();
 				List<Shout> shouts = manager.movieService().shouts(m.getImdbId()).fire();
 
 				return shouts;
@@ -403,8 +408,11 @@ public class MovieActivity extends GDActivity implements OnDrawerOpenListener, O
 
 				}
 
-				////				LazyAdapter lz=new LazyAdapter(movieActivity, UsersAvatar, Users, temp);
-				//				mShoutList.setAdapter(lz);
+				if(avatarURL!=null){
+					ImageLoader imageLoader=new ImageLoader(movieActivity.getApplicationContext());
+					
+					imageLoader.DisplayImage(avatarURL, movieActivity, mAvatar);
+					}
 				lazyAdapter=new LazyAdapterShouts(movieActivity, Users,UsersAvatar,Shouts, ShoutsDate);
 
 				mShoutList.setAdapter(lazyAdapter);
@@ -437,7 +445,7 @@ public class MovieActivity extends GDActivity implements OnDrawerOpenListener, O
 			try{
 				ServiceManager manager = new ServiceManager();
 				manager.setAuthentication(username, new Password().parseSHA1Password(password));
-				manager.setApiKey("a7b42c4fb5c50a85c68731b25cc3c1ed");
+				manager.setApiKey(apikey);
 				
 				switch (params[0]){
 				case HATE:

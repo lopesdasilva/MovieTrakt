@@ -3,11 +3,13 @@ package com.MovieTrakt;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.MovieTrakt.LazyList.ImageLoader;
 import com.MovieTrakt.LazyList.LazyAdapter;
 import com.jakewharton.trakt.ServiceManager;
 import com.jakewharton.trakt.entities.Movie;
 
 import greendroid.app.GDActivity;
+import greendroid.widget.ActionBar;
 import greendroid.widget.ActionBarItem;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -26,8 +28,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MovieTraktActivity extends GDActivity {
+	
+	private final String apikey="a7b42c4fb5c50a85c68731b25cc3c1ed";
+
 	private static final int REFRESH=0;
 	private static final int SEARCH = 1;
 	private static final int SETTINGS = 2;
@@ -37,13 +43,15 @@ public class MovieTraktActivity extends GDActivity {
 	private MovieTraktActivity movieTraktActivity;
 	private LazyAdapter lazyAdapter;
 	private ProgressBar mProgressBar;
+	private ImageView mAvatar;
 
+	public String avatarURL;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getPrefs();
-		if (!rating){
+		if (!login){
 			//			setContentView(R.layout.poster);
 			Intent i =new Intent(this, LoginActivity.class);
 			i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -53,16 +61,19 @@ public class MovieTraktActivity extends GDActivity {
 		}else
 		{
 			setActionBarContentView(R.layout.main);
+			getActionBar().setType(ActionBar.Type.Empty);
 			addActionBarItem(ActionBarItem.Type.Refresh2,REFRESH);
 			addActionBarItem(ActionBarItem.Type.Search, SEARCH);
 			addActionBarItem(ActionBarItem.Type.Settings, SETTINGS);
 
-			setTitle("MovieTrakt");
+			
 			getPrefs();
 			movieTraktActivity=this;
 
-
-
+			
+			mAvatar = (ImageView) findViewById(R.id.avatar);
+			
+			
 			mProgressBar =(ProgressBar) findViewById(R.id.progressBar);
 			mGallery = (Gallery) findViewById(R.id.gall);
 			mGallery.setAdapter(new ImageAdapter(this));
@@ -71,7 +82,8 @@ public class MovieTraktActivity extends GDActivity {
 			TextView mUsername = (TextView) findViewById(R.id.user);
 			mUsername.setText(username);
 
-			
+			Toast.makeText(getApplicationContext(), "Refreshing Trending Movies",Toast.LENGTH_SHORT).show();
+
 			new downloadTrending().execute();
 			
 
@@ -106,26 +118,15 @@ public class MovieTraktActivity extends GDActivity {
 
 				ServiceManager manager = new ServiceManager();
 				manager.setAuthentication(username, new Password().parseSHA1Password(password));
-				manager.setApiKey("a7b42c4fb5c50a85c68731b25cc3c1ed");
-
-				//TODO Verificar se esta Ž a melhor implementacao
-				//				GDIntroApp appstate =(GDIntroApp) getApplicationContext();
-				//				List<Movie> library = manager.userService().libraryMoviesAll("lopesdasilvatest").fire();
-				//				ArrayList<String> libraryIMDBs = new ArrayList<String>(); 
-				//				for (Movie m: library){
-				//					libraryIMDBs.add(m.getImdbId());
-				//				}
-				//				appstate.setLibraryIMDBs(libraryIMDBs);
-				//				appstate.setLibrary(library);
-
-
-
+				manager.setApiKey(apikey);
+				
+				avatarURL=manager.userService().profile(username).fire().getAvatar();
+			
 				List<Movie> mlist = manager.movieService().trending().fire();
 				ArrayList<Movie> d=new ArrayList<Movie>();
-				//TODO isto Ž para melhorar (passar como return)
+				//TODO URGENTE isto Ž para melhorar (passar como return)
 				trendingList=mlist;
 				for(Movie c: mlist){
-					//					Movie m = manager.movieService().summary(c.getImdbId()).fire();
 					d.add(c);
 				}
 				return d;
@@ -164,6 +165,11 @@ public class MovieTraktActivity extends GDActivity {
 					i++;
 				}
 
+				if(avatarURL!=null){
+				ImageLoader imageLoader=new ImageLoader(movieTraktActivity.getApplicationContext());
+				
+				imageLoader.DisplayImage(avatarURL, movieTraktActivity, mAvatar);
+				}
 				lazyAdapter=new LazyAdapter(movieTraktActivity, mPosters,mTitle,mSeen);
 				mTrendingList.setAdapter(lazyAdapter);
 
@@ -201,7 +207,7 @@ public class MovieTraktActivity extends GDActivity {
 			break;
 
 		case SEARCH:
-
+			Toast.makeText(getApplicationContext(), "Refreshing Trending Movies",Toast.LENGTH_SHORT).show();
 			this.startSearch(null, false, Bundle.EMPTY, false);
 			break;
 		case SETTINGS:
@@ -215,16 +221,15 @@ public class MovieTraktActivity extends GDActivity {
 		return true;
 	}
 
-	boolean rating;
+	boolean login;
 	String username;
 	String password;
-	String apikey;
 
 	private void getPrefs() {
 		// Get the xml/preferences.xml preferences
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(getBaseContext());
-		rating = prefs.getBoolean("login", false);
+		login = prefs.getBoolean("login", false);
 
 
 
@@ -232,21 +237,17 @@ public class MovieTraktActivity extends GDActivity {
 				"username");
 		password = prefs.getString("password",
 				"password");
-		apikey = prefs.getString("apikey",
-				"apikey");
 	}
 	public void onResume() {
 		super.onResume();
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(getBaseContext());
-		rating = prefs.getBoolean("rating", true);
+		login = prefs.getBoolean("rating", true);
 
 		username = prefs.getString("username",
 				"username");
 		password = prefs.getString("password",
 				"password");
-		apikey = prefs.getString("apikey",
-				"apikey");
 	}	
 
 

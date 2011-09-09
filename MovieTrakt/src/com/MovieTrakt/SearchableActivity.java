@@ -32,6 +32,8 @@ public class SearchableActivity extends GDActivity {
 	private SearchableActivity searchableActivitity;
 	ServiceManager manager=null;
 
+	String apikey="a7b42c4fb5c50a85c68731b25cc3c1ed";
+
 	private static final int SEARCH = 0;
 	private static final int SETTINGS = 1;
 
@@ -91,7 +93,6 @@ public class SearchableActivity extends GDActivity {
 	boolean rating;
 	String username;
 	String password;
-	String apikey;
 	public List<Movie> moviesList;
 
 	private void getPrefs() {
@@ -104,8 +105,6 @@ public class SearchableActivity extends GDActivity {
 				"username");
 		password = prefs.getString("password",
 				"password");
-		apikey = prefs.getString("apikey",
-				"apikey");
 	}
 
 	private class Searching extends AsyncTask<String, Void, ArrayList<Movie>> {
@@ -119,7 +118,7 @@ public class SearchableActivity extends GDActivity {
 
 				manager = new ServiceManager();
 				manager.setAuthentication(username, new Password().parseSHA1Password(password));
-				manager.setApiKey("a7b42c4fb5c50a85c68731b25cc3c1ed");
+				manager.setApiKey(apikey);
 				MoviesBuilder a = manager.searchService().movies(params[0].toString());
 				List<Movie> b = a.fire();
 

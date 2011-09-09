@@ -30,8 +30,17 @@
 			<meta-data android:name="android.app.default_searchable"
 				android:value=".SearchableActivity" />
 		</activity>
+		
 		<activity android:name=".PosterActivity" />
-		<activity android:name=".LoginActivity"/>
+		<activity android:name=".LoginActivity" />
+		<activity android:name=".LogOffActivity" android:label="Logoff">
+			<intent-filter>
+				<action android:name="com.MovieTrakt.LOGOFF" />
+				<category android:name="android.intent.category.DEFAULT" />
+
+			</intent-filter>
+		</activity>
+
 	</application>
 
 </manifest>

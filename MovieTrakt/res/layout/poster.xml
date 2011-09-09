@@ -5,6 +5,6 @@
   android:layout_width="fill_parent"
   android:layout_height="fill_parent"
    android:background="#333333">
-    <greendroid.widget.AsyncImageView android:layout_width="fill_parent" android:layout_height="fill_parent" android:id="@+id/poster"></greendroid.widget.AsyncImageView>
+    <ImageView android:layout_width="fill_parent" android:layout_height="fill_parent" android:id="@+id/poster"></ImageView>
     
 </LinearLayout>

@@ -1,9 +1,11 @@
 package com.MovieTrakt;
 
+import com.MovieTrakt.LazyList.ImageLoaderBigger;
+
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.Toast;
 import greendroid.app.GDActivity;
-import greendroid.widget.AsyncImageView;
 
 public class PosterActivity extends GDActivity{
 
@@ -18,8 +20,10 @@ public class PosterActivity extends GDActivity{
 				"Press Back to return",Toast.LENGTH_SHORT).show();
 		
 		setTitle(extras.getString("Title"));
-		AsyncImageView poster = (AsyncImageView) findViewById(R.id.poster);
-		poster.setUrl(url);
+		
+		ImageLoaderBigger imageLoader=new ImageLoaderBigger(this.getApplicationContext());
+		ImageView image=(ImageView) findViewById(R.id.poster);
+		imageLoader.DisplayImage(url, this, image);
 
 	}
 }

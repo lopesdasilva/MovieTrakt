@@ -9,7 +9,7 @@
             <LinearLayout android:scrollbars="vertical|horizontal" android:layout_width="fill_parent" android:id="@+id/linearLayout3" android:orientation="vertical" android:layout_height="wrap_content">
                 <LinearLayout android:scrollbarStyle="insideInset" android:weightSum="1" android:layout_width="fill_parent" android:id="@+id/linearLayout1" android:layout_height="wrap_content">
                     <RelativeLayout android:layout_gravity="clip_vertical" android:layout_width="153dp" android:layout_height="fill_parent">
-                        <greendroid.widget.AsyncImageView android:layout_centerInParent="true" android:id="@+id/poster" android:layout_width="160dp" android:layout_height="190dp"></greendroid.widget.AsyncImageView>
+                        <ImageView android:layout_centerInParent="true" android:id="@+id/poster" android:layout_width="160dp" android:layout_height="190dp"></ImageView>
                         <RelativeLayout android:id="@+id/relativeLayout1" android:layout_alignParentTop="true" android:layout_width="35dp" android:layout_alignParentLeft="true" android:layout_height="35dp">
                             <ImageView android:id="@+id/collectiontag" android:layout_width="fill_parent" android:layout_height="fill_parent" android:src="@drawable/collection" android:visibility="gone"></ImageView>
                             <ImageView android:id="@+id/watchtag" android:layout_alignParentTop="true" android:layout_alignParentRight="true" android:layout_width="25dp" android:layout_height="35dp" android:src="@drawable/watchtag" android:visibility="gone"></ImageView>
@@ -37,19 +37,20 @@
                             <LinearLayout android:scrollbarAlwaysDrawVerticalTrack="true" android:scrollbarStyle="insideOverlay" android:layout_width="fill_parent" android:id="@+id/linearLayout2" android:orientation="vertical" android:layout_height="match_parent">
                                 <TextView android:id="@+id/tag" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content"></TextView>
                                 <TextView android:id="@+id/description" android:text="Description" android:textColor="#ffffff" android:layout_height="wrap_content" android:layout_width="fill_parent"></TextView>
-                                <TextView android:id="@+id/released" android:text="Released" android:layout_height="wrap_content" android:layout_width="wrap_content"></TextView>
+                                <TextView android:id="@+id/released" android:text="Released" android:layout_height="wrap_content" android:layout_width="wrap_content" android:visibility="gone"></TextView>
                                 <LinearLayout android:baselineAligned="false" android:layout_gravity="center" android:layout_width="wrap_content" android:id="@+id/linearLayout5" android:layout_height="32dp">
                                     <ImageView android:id="@+id/trailerbutton" android:layout_width="85dp" android:layout_height="wrap_content" android:src="@drawable/trailerxml" android:visibility="gone"></ImageView>
                                     <ImageView android:id="@+id/imdbbutton" android:layout_width="80dp" android:layout_height="wrap_content" android:src="@drawable/imdbxml"></ImageView>
                                     <ImageView android:id="@+id/tmdbbutton" android:layout_width="80dp" android:layout_height="wrap_content" android:src="@drawable/tmdbxml"></ImageView>
                                 </LinearLayout>
+                                <TextView android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:text="    " android:id="@+id/textView1" android:layout_width="wrap_content"></TextView>
                             </LinearLayout>
                         </LinearLayout>
                     </ScrollView>
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
-        <SlidingDrawer android:layout_width="match_parent" android:id="@+id/slidingDrawer1" android:handle="@+id/handle" android:content="@+id/content" android:layout_height="match_parent">
+        <SlidingDrawer android:layout_width="match_parent" android:id="@+id/slidingDrawer1" android:handle="@+id/handle" android:content="@+id/content" android:layout_height="match_parent" android:visibility="visible">
             <Button android:layout_width="match_parent" android:layout_height="40dp" android:textColor="#ffffff" android:textSize="23dp" android:text="ShoutBox" android:id="@+id/handle" android:background="@drawable/topbar"></Button>
             <LinearLayout android:background="#e6e6e1" android:layout_width="match_parent" android:id="@+id/content" android:layout_height="match_parent">
                 <LinearLayout android:id="@+id/linearLayout6" android:orientation="vertical" android:layout_height="match_parent" android:layout_width="match_parent">
