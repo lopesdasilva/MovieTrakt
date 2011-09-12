@@ -18,6 +18,8 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -120,7 +122,8 @@ public class MovieTraktActivity extends GDActivity {
 				manager.setAuthentication(username, new Password().parseSHA1Password(password));
 				manager.setApiKey(apikey);
 				
-				avatarURL=manager.userService().profile(username).fire().getAvatar();
+				//TODO this is not working right
+			//	avatarURL=manager.userService().profile(username).fire().getAvatar();
 			
 				List<Movie> mlist = manager.movieService().trending().fire();
 				ArrayList<Movie> d=new ArrayList<Movie>();
@@ -201,13 +204,13 @@ public class MovieTraktActivity extends GDActivity {
 		switch (item.getItemId()) {
 
 		case REFRESH:
+			Toast.makeText(getApplicationContext(), "Refreshing Trending List",Toast.LENGTH_SHORT).show();
 			mProgressBar.setVisibility(ProgressBar.VISIBLE);
 			mTrendingList.setVisibility(ListView.GONE);
 			new downloadTrending().execute();
 			break;
 
 		case SEARCH:
-			Toast.makeText(getApplicationContext(), "Refreshing Trending Movies",Toast.LENGTH_SHORT).show();
 			this.startSearch(null, false, Bundle.EMPTY, false);
 			break;
 		case SETTINGS:
@@ -298,7 +301,45 @@ public class MovieTraktActivity extends GDActivity {
 
 			return imageView;
 		}
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		menu.add(1, 1, Menu.FIRST, "Collection").setIcon(R.drawable.iconlibrary);
+		menu.add(1, 2, Menu.FIRST+1, "Recommendations").setIcon(R.drawable.iconrecommendations);
+		menu.add(1, 3, Menu.FIRST+2, "Watchlist").setIcon(R.drawable.iconwatchlist);
+		menu.add(1, 4, Menu.FIRST+3, "Watched").setIcon(R.drawable.iconhistory);
+		menu.add(1, 5, Menu.FIRST+4, "Friends").setIcon(R.drawable.iconfriends);
 
+		return true;
 	}
 
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+
+
+		switch(item.getItemId())
+		{
+		case 1:
+			startActivity(new Intent(this, CollectionActivity.class));
+			return true;
+		case 2:
+			startActivity(new Intent(this, RecommendationsActivity.class));
+			return true;
+		case 3:
+			startActivity(new Intent(this, WatchlistActivity.class));
+			return true;
+		case 4:
+			startActivity(new Intent(this, WatchedActivity.class));
+			return true;
+		case 5:
+			startActivity(new Intent(this, FriendsActivity.class));
+			return true;
+
+		}
+		return super.onOptionsItemSelected(item);
+
+	}
+	
 }

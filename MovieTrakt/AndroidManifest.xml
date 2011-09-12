@@ -30,8 +30,29 @@
 			<meta-data android:name="android.app.default_searchable"
 				android:value=".SearchableActivity" />
 		</activity>
-		
+
 		<activity android:name=".PosterActivity" />
+		<activity android:name=".CollectionActivity">
+			<meta-data android:name="android.app.default_searchable"
+				android:value=".SearchableActivity" />
+		</activity>
+		<activity android:name=".WatchlistActivity">
+			<meta-data android:name="android.app.default_searchable"
+				android:value=".SearchableActivity" />
+		</activity>
+		<activity android:name=".RecommendationsActivity">
+			<meta-data android:name="android.app.default_searchable"
+				android:value=".SearchableActivity" />
+		</activity>
+		
+		<activity android:name=".WatchedActivity">
+			<meta-data android:name="android.app.default_searchable"
+				android:value=".SearchableActivity" />
+		</activity>
+		<activity android:name=".FriendsActivity">
+			<meta-data android:name="android.app.default_searchable"
+				android:value=".SearchableActivity" />
+		</activity>
 		<activity android:name=".LoginActivity" />
 		<activity android:name=".LogOffActivity" android:label="Logoff">
 			<intent-filter>
