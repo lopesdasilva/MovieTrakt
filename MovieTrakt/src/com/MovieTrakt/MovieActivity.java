@@ -317,7 +317,13 @@ public class MovieActivity extends GDActivity implements OnDrawerOpenListener, O
 					mLoveTag.setVisibility(ImageView.VISIBLE);
 
 				if(!result.getTrailer().equals(""))
-					mTrailer.setVisibility(ImageView.VISIBLE);
+				mTrailer.setVisibility(ImageView.VISIBLE);
+				
+				
+				if (mTag.getText().toString().equals(""))
+					mTag.setText(result.getTagline());
+				if(mDescription.getText().toString().equals(""))
+					mDescription.setText(result.getOverview());
 
 
 			}else{
@@ -374,7 +380,7 @@ public class MovieActivity extends GDActivity implements OnDrawerOpenListener, O
 				ServiceManager manager = new ServiceManager();
 				manager.setAuthentication(username, new Password().parseSHA1Password(password));
 				manager.setApiKey(apikey);
-				avatarURL=manager.userService().profile(username).fire().getAvatar();
+//				avatarURL=manager.userService().profile(username).fire().getAvatar();
 				List<Shout> shouts = manager.movieService().shouts(m.getImdbId()).fire();
 
 				return shouts;

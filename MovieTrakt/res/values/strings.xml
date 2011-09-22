@@ -2,4 +2,15 @@
 <resources>
     <string name="hello">Hello World, MovieTraktActivity!</string>
     <string name="app_name">MovieTrakt</string>
+    <string name="username">Username</string>
+    <string name="joined">joined </string>
+    <string name="movies">movies</string>
+    <string name="numbers">00</string>
+    <string name="recommendations">Recommendations...</string>
+    <string name="seemore">see more >></string>
+    <string name="trendingMovies">Trending Movies</string>
+    <string name="hi">Hi   </string>
+    <string name="location"> Location</string>
+    <string name="date">date</string>
+    <string name="soon">Comming Soon</string>
 </resources>

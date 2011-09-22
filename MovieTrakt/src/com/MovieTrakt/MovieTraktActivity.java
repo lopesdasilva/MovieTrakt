@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.MovieTrakt.LazyList.ImageLoader;
+import com.MovieTrakt.LazyList.ImageLoaderBigger;
 import com.MovieTrakt.LazyList.LazyAdapter;
 import com.jakewharton.trakt.ServiceManager;
 import com.jakewharton.trakt.entities.Movie;
+import com.jakewharton.trakt.entities.UserProfile;
 
 import greendroid.app.GDActivity;
 import greendroid.widget.ActionBar;
@@ -62,48 +64,66 @@ public class MovieTraktActivity extends GDActivity {
 
 		}else
 		{
-			setActionBarContentView(R.layout.main);
-			getActionBar().setType(ActionBar.Type.Empty);
-			addActionBarItem(ActionBarItem.Type.Refresh2,REFRESH);
-			addActionBarItem(ActionBarItem.Type.Search, SEARCH);
-			addActionBarItem(ActionBarItem.Type.Settings, SETTINGS);
-
-			
-			getPrefs();
-			movieTraktActivity=this;
-
-			
-			mAvatar = (ImageView) findViewById(R.id.avatar);
-			
-			
-			mProgressBar =(ProgressBar) findViewById(R.id.progressBar);
-			mGallery = (Gallery) findViewById(R.id.gall);
-			mGallery.setAdapter(new ImageAdapter(this));
-
-
-			TextView mUsername = (TextView) findViewById(R.id.user);
-			mUsername.setText(username);
-
-			Toast.makeText(getApplicationContext(), "Refreshing Trending Movies",Toast.LENGTH_SHORT).show();
-
-			new downloadTrending().execute();
-			
-
-			mTrendingList = (ListView) findViewById(R.id.trendingList);
-			mTrendingList.setClickable(true);
-			mTrendingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-
-					Intent i = new Intent(getApplicationContext(), MovieActivity.class);
-					i.putExtra("Movie", trendingList.get(position));
-					startActivity(i);
-
-				}
-			});
-
-		}
+			Intent i =new Intent(this, HomeGalleryActivity.class);
+			i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(i);
+			finish();
+		}	
+//			setActionBarContentView(R.layout.main);
+//			getActionBar().setType(ActionBar.Type.Empty);
+//			addActionBarItem(ActionBarItem.Type.Refresh2,REFRESH);
+//			addActionBarItem(ActionBarItem.Type.Search, SEARCH);
+//			addActionBarItem(ActionBarItem.Type.Settings, SETTINGS);
+//
+//			
+//			getPrefs();
+//			movieTraktActivity=this;
+//
+//			
+//			mAvatar = (ImageView) findViewById(R.id.avatar);
+//			
+//			
+//			mProgressBar =(ProgressBar) findViewById(R.id.progressBar);
+//			mGallery = (Gallery) findViewById(R.id.gall);
+//			mGallery.setAdapter(new ImageAdapter(this));
+//
+//
+//			TextView mUsername = (TextView) findViewById(R.id.user);
+//			mUsername.setText(username);
+//
+//			Toast.makeText(getApplicationContext(), "Refreshing Trending Movies",Toast.LENGTH_SHORT).show();
+//
+//			new downloadTrending().execute();
+//			new downloadUser().execute();
+//
+//			mTrendingList = (ListView) findViewById(R.id.trendingList);
+//			mTrendingList.setClickable(true);
+//			mTrendingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//
+//				@Override
+//				public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+//
+//					Intent i = new Intent(getApplicationContext(), MovieActivity.class);
+//					i.putExtra("Movie", trendingList.get(position));
+//					startActivity(i);
+//
+//				}
+//			});
+//			mAvatar.setOnClickListener(new View.OnClickListener() {
+//				@Override
+//				public void onClick(View v) {
+//					//TODO ALTERAR PARA O PROFILE
+//					Intent i = new Intent(getApplicationContext(), HomeGalleryActivity.class);
+////					i.putExtra("Poster", m.getImages().getPoster());
+////					i.putExtra("Title", m.getTitle()+" ("+m.getYear()+")");
+//					startActivity(i);
+//
+//				}
+//			});
+//			
+//			
+//			
+//		}
 	}
 
 
@@ -254,7 +274,42 @@ public class MovieTraktActivity extends GDActivity {
 	}	
 
 
+	private class downloadUser extends AsyncTask<String, Void, UserProfile> {
+		private Exception e=null;
 
+		@Override
+		protected UserProfile doInBackground(String... params) {
+
+
+			try{
+
+				ServiceManager manager = new ServiceManager();
+				manager.setAuthentication(username, new Password().parseSHA1Password(password));
+				manager.setApiKey(apikey);
+				
+				
+		return manager.userService().profile(username).fire();
+
+			}catch (Exception e){
+				this.e=e;
+			}
+			return null;
+		}
+
+		/** The system calls this to perform work in the UI thread and delivers
+		 * the result from doInBackground() */
+		protected void onPostExecute(UserProfile result) {
+			if(e==null){
+				if(result.getAvatar()!=null){
+				ImageLoaderBigger imageLoader=new ImageLoaderBigger(getApplicationContext());
+				
+				imageLoader.DisplayImage(result.getAvatar(), movieTraktActivity, mAvatar);
+				}
+			}else 
+			goBlooey(e);
+		}
+		
+	}
 
 
 	public class ImageAdapter extends BaseAdapter {

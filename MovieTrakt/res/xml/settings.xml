@@ -16,7 +16,7 @@
                 <Preference
                 android:key="version"
                 android:title="Version"
-                android:summary="1.1b" />
+                android:summary="1.3b" />
                 <Preference
                 android:key="author"
                 android:title="Author"

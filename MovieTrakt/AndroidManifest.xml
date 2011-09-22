@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.MovieTrakt" android:versionCode="1" android:versionName="1.0">
+	package="com.MovieTrakt" android:versionCode="4" android:versionName="1.3b">
 	<uses-sdk android:minSdkVersion="8" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -44,6 +44,10 @@
 			<meta-data android:name="android.app.default_searchable"
 				android:value=".SearchableActivity" />
 		</activity>
+		<activity android:name=".TrendingActivity">
+			<meta-data android:name="android.app.default_searchable"
+				android:value=".SearchableActivity" />
+		</activity>
 		
 		<activity android:name=".WatchedActivity">
 			<meta-data android:name="android.app.default_searchable"
@@ -53,6 +57,15 @@
 			<meta-data android:name="android.app.default_searchable"
 				android:value=".SearchableActivity" />
 		</activity>
+		<activity android:name=".ProfileActivity">
+			<meta-data android:name="android.app.default_searchable"
+				android:value=".SearchableActivity" />
+		</activity>
+		<activity android:name=".HomeGalleryActivity">
+			<meta-data android:name="android.app.default_searchable"
+				android:value=".SearchableActivity" />
+		</activity>
+		
 		<activity android:name=".LoginActivity" />
 		<activity android:name=".LogOffActivity" android:label="Logoff">
 			<intent-filter>
