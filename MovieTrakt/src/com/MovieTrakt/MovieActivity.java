@@ -1,5 +1,7 @@
 package com.MovieTrakt;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -71,6 +73,9 @@ public class MovieActivity extends GDActivity implements OnDrawerOpenListener, O
 	private ServiceManager managerGlobal;
 	private EditText mShoutText;
 	private ImageView mAvatar;
+	private TextView mReleased;
+	private TextView mRuntime;
+	private TextView mCertification;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -95,14 +100,16 @@ public class MovieActivity extends GDActivity implements OnDrawerOpenListener, O
 		mDescription = (TextView) findViewById(R.id.description);
 		mRating = (TextView) findViewById(R.id.rating);
 		mVotes = (TextView) findViewById(R.id.textVotes);
-//		mReleased = (TextView) findViewById(R.id.released);
-
+		mReleased = (TextView) findViewById(R.id.released);
+		mRuntime = (TextView) findViewById(R.id.runtime);
+		mCertification = (TextView) findViewById(R.id.certification);
 		mTag.setText(m.getTagline());
 		mDescription.setText(m.getOverview());
-		
+
 		ImageLoaderBigger imageLoader=new ImageLoaderBigger(this.getApplicationContext());
 		mPoster = (ImageView) findViewById(R.id.poster);
 		imageLoader.DisplayImage(m.getImages().getPoster(), this, mPoster);
+
 
 		mTrailer = (ImageView) findViewById(R.id.trailerbutton);
 		mIMDB = (ImageView) findViewById(R.id.imdbbutton);
@@ -153,7 +160,7 @@ public class MovieActivity extends GDActivity implements OnDrawerOpenListener, O
 		mHateButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+
 				new Marking().execute(MarkingTypes.HATE);
 
 			}
@@ -171,7 +178,7 @@ public class MovieActivity extends GDActivity implements OnDrawerOpenListener, O
 		mSeenButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-			new Marking().execute(MarkingTypes.SEEN);
+				new Marking().execute(MarkingTypes.SEEN);
 			}
 		});
 
@@ -317,11 +324,29 @@ public class MovieActivity extends GDActivity implements OnDrawerOpenListener, O
 					mLoveTag.setVisibility(ImageView.VISIBLE);
 
 				if(!result.getTrailer().equals(""))
-				mTrailer.setVisibility(ImageView.VISIBLE);
-				
-				
+					mTrailer.setVisibility(ImageView.VISIBLE);
+
+				if(result.getRuntime()!=null){
+					mRuntime.setText("Runtime: "+result.getRuntime()+" min");
+					mRuntime.setVisibility(View.VISIBLE);
+				}
+				if(result.getReleased()!=null){
+					DateFormat formatter;
+					formatter= new SimpleDateFormat("dd MMM yy");
+					Date d= result.getReleased();
+					String s=formatter.format(d);
+					mReleased.setText("Released: "+s);
+					mReleased.setVisibility(View.VISIBLE);
+				}
+				if(result.getCertification()!=null){
+					mCertification.setText("Certification: "+result.getCertification());
+					mCertification.setVisibility(View.VISIBLE);
+				}
+
+
 				if (mTag.getText().toString().equals(""))
 					mTag.setText(result.getTagline());
+				
 				if(mDescription.getText().toString().equals(""))
 					mDescription.setText(result.getOverview());
 
@@ -380,7 +405,7 @@ public class MovieActivity extends GDActivity implements OnDrawerOpenListener, O
 				ServiceManager manager = new ServiceManager();
 				manager.setAuthentication(username, new Password().parseSHA1Password(password));
 				manager.setApiKey(apikey);
-//				avatarURL=manager.userService().profile(username).fire().getAvatar();
+				//				avatarURL=manager.userService().profile(username).fire().getAvatar();
 				List<Shout> shouts = manager.movieService().shouts(m.getImdbId()).fire();
 
 				return shouts;
@@ -400,25 +425,26 @@ public class MovieActivity extends GDActivity implements OnDrawerOpenListener, O
 				String[] Users = new String[result.size()];
 				String[] UsersAvatar = new String[result.size()];
 				String[] Shouts = new String[result.size()];
-				String[] ShoutsDate = new String[result.size()];
+				Date[] ShoutsDate = new Date[result.size()];
 				int i=0;
 				for (Shout s:result){
 
 					Users[i]=s.getUser().getUsername();
 					UsersAvatar[i]=s.getUser().getAvatar();
 					Shouts[i]=s.getShout();
-					ShoutsDate[i]=s.getInserted().toString();
+					ShoutsDate[i]=s.getInserted().getTime();
 
 
 					i++;
 
 				}
+							
 
 				if(avatarURL!=null){
 					ImageLoader imageLoader=new ImageLoader(movieActivity.getApplicationContext());
-					
+
 					imageLoader.DisplayImage(avatarURL, movieActivity, mAvatar);
-					}
+				}
 				lazyAdapter=new LazyAdapterShouts(movieActivity, Users,UsersAvatar,Shouts, ShoutsDate);
 
 				mShoutList.setAdapter(lazyAdapter);
@@ -452,11 +478,11 @@ public class MovieActivity extends GDActivity implements OnDrawerOpenListener, O
 				ServiceManager manager = new ServiceManager();
 				manager.setAuthentication(username, new Password().parseSHA1Password(password));
 				manager.setApiKey(apikey);
-				
+
 				switch (params[0]){
 				case HATE:
 					managerGlobal.rateService().movie(m.getImdbId()).rating(Rating.Hate).fire();
-				break;
+					break;
 				case LOVE:
 					manager.rateService().movie(m.getImdbId()).rating(Rating.Love).fire();
 					break;
@@ -476,7 +502,7 @@ public class MovieActivity extends GDActivity implements OnDrawerOpenListener, O
 					//TODO implementar comunicao com servidor
 					if (mCollectionTag.getVisibility()==ImageView.VISIBLE)
 						managerGlobal.movieService().unlibrary().movie(m.getImdbId()).fire();
-						else
+					else
 						managerGlobal.movieService().library().movie(m.getImdbId(), 1, new Date()).fire();
 					break;
 				}
@@ -497,7 +523,7 @@ public class MovieActivity extends GDActivity implements OnDrawerOpenListener, O
 				switch (param){
 				case HATE:
 					mLoveTag.setVisibility(ImageView.GONE);
-				break;
+					break;
 				case LOVE:
 					mLoveTag.setVisibility(ImageView.VISIBLE);
 					break;
@@ -506,14 +532,14 @@ public class MovieActivity extends GDActivity implements OnDrawerOpenListener, O
 						mWatchTag.setVisibility(ImageView.GONE);
 					else
 						mWatchTag.setVisibility(ImageView.VISIBLE);
-					
+
 					break;
 				case SEEN:
 					if (mSeenTag.getVisibility()==ImageView.VISIBLE)
 						mSeenTag.setVisibility(ImageView.GONE);
 					else
 						mSeenTag.setVisibility(ImageView.VISIBLE);
-					
+
 					break;
 				case COLLECTION:
 					//TODO implementar comunicao com servidor

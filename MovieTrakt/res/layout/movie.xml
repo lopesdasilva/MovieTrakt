@@ -38,12 +38,13 @@
                                 <TextView android:id="@+id/tag" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content"></TextView>
                                 <TextView android:id="@+id/description" android:text="Description" android:textColor="#ffffff" android:layout_height="wrap_content" android:layout_width="fill_parent"></TextView>
                                 <TextView android:id="@+id/released" android:text="Released" android:layout_height="wrap_content" android:layout_width="wrap_content" android:visibility="gone"></TextView>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/runtime" android:text="@string/runtime" android:visibility="gone"></TextView>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/certification" android:text="@string/certification" android:visibility="gone"></TextView>
                                 <LinearLayout android:baselineAligned="false" android:layout_gravity="center" android:layout_width="wrap_content" android:id="@+id/linearLayout5" android:layout_height="32dp">
                                     <ImageView android:id="@+id/trailerbutton" android:layout_width="85dp" android:layout_height="wrap_content" android:src="@drawable/trailerxml" android:visibility="gone"></ImageView>
                                     <ImageView android:id="@+id/imdbbutton" android:layout_width="80dp" android:layout_height="wrap_content" android:src="@drawable/imdbxml"></ImageView>
                                     <ImageView android:id="@+id/tmdbbutton" android:layout_width="80dp" android:layout_height="wrap_content" android:src="@drawable/tmdbxml"></ImageView>
                                 </LinearLayout>
-                                <TextView android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:text="    " android:id="@+id/textView1" android:layout_width="wrap_content"></TextView>
                             </LinearLayout>
                         </LinearLayout>
                     </ScrollView>
@@ -63,7 +64,7 @@
                     </LinearLayout>
                     <RelativeLayout android:id="@+id/relativeLayout7" android:layout_height="match_parent" android:layout_width="match_parent">
                         <ProgressBar android:layout_centerInParent="true" android:id="@+id/progressBarShout" android:layout_width="wrap_content" android:layout_height="wrap_content"></ProgressBar>
-                        <ListView android:layout_width="match_parent" android:id="@+id/shoutList" android:clickable="false" android:layout_height="match_parent"></ListView>
+                        <ListView android:layout_width="match_parent" android:id="@+id/shoutList" android:clickable="false" android:layout_height="wrap_content" android:dividerHeight="30dp"></ListView>
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>

@@ -11,7 +11,6 @@ import com.jakewharton.trakt.entities.Movie;
 import com.jakewharton.trakt.entities.UserProfile;
 
 import greendroid.app.GDActivity;
-import greendroid.widget.ActionBar;
 import greendroid.widget.ActionBarItem;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -25,13 +24,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.AdapterView;
+
 import android.widget.BaseAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class MovieTraktActivity extends GDActivity {
@@ -41,7 +39,6 @@ public class MovieTraktActivity extends GDActivity {
 	private static final int REFRESH=0;
 	private static final int SEARCH = 1;
 	private static final int SETTINGS = 2;
-	private Gallery mGallery;
 	private ListView mTrendingList;
 	public List<Movie> trendingList;
 	private MovieTraktActivity movieTraktActivity;
@@ -51,6 +48,8 @@ public class MovieTraktActivity extends GDActivity {
 
 	public String avatarURL;
 	/** Called when the activity is first created. */
+
+	private int numberStarts;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -64,6 +63,7 @@ public class MovieTraktActivity extends GDActivity {
 
 		}else
 		{
+			
 			Intent i =new Intent(this, HomeGalleryActivity.class);
 			i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(i);

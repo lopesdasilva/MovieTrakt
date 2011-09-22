@@ -13,4 +13,6 @@
     <string name="location"> Location</string>
     <string name="date">date</string>
     <string name="soon">Comming Soon</string>
+    <string name="runtime">Runtime</string>
+    <string name="certification">Certification</string>
 </resources>
